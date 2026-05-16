@@ -1,0 +1,38 @@
+name: StuffieCrossing
+options:
+  bundleIdPrefix: com.stuffiecrossing
+  deploymentTarget:
+    iOS: "16.0"
+  createIntermediateGroups: true
+
+targets:
+  StuffieCrossing:
+    type: application
+    platform: iOS
+    deploymentTarget: "16.0"
+    sources:
+      - path: StuffieCrossing
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.stuffiecrossing.app
+        TARGETED_DEVICE_FAMILY: "2"        # iPad only
+        SWIFT_VERSION: "5.9"
+        CODE_SIGN_STYLE: Automatic
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+    dependencies:
+      - sdk: SpriteKit.framework
+      - sdk: AVFoundation.framework
+    info:
+      path: StuffieCrossing/Info.plist
+      properties:
+        CFBundleDisplayName: Stuffie Crossing
+        UILaunchScreen: {}
+        UIRequiresFullScreen: true
+        LSRequiresIPhoneOS: true
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        UISupportedInterfaceOrientations~ipad:
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
