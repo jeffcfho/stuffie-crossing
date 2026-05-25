@@ -25,13 +25,43 @@ Source from **freesound.org** — filter for **CC0** (no attribution required). 
 | `snapback.mp3` | Stuffie snaps back to bank (drag miss) | Light boing or rubber snap | < 0.5 s |
 | `win.mp3` | WIN state entered | Cheerful chime or fanfare | 2–3 s |
 
-**Freesound.org search terms:**
-- `crossing.mp3` → "soft footsteps", "light whoosh", "shuffle steps"
-- `plop.mp3` → "soft thud", "toy plop", "plush drop"
-- `snapback.mp3` → "boing", "spring bounce", "rubber snap"
-- `win.mp3` → "chime fanfare", "success jingle", "bright ding"
+**CC0** means the creator has waived all copyright — use freely in any app, no attribution needed. Avoid **CC BY** (requires crediting the author in-app). Verify the license badge on each page before downloading.
 
 Prefer **mono** files under 100 KB each. `.mp3` or `.caf` both work; `.caf` avoids iOS resampling overhead but `.mp3` is easier to source.
+
+### Candidate sounds — open each link, hit play to audition, download the one you like
+
+#### `crossing.mp3` — stuffies start walking across the bridge (plays once per Go tap, 1–2 s)
+
+| Option | Notes |
+|--------|-------|
+| [Footsteps, Indoor, Soft — BurghRecords](https://freesound.org/people/BurghRecords/sounds/386929/) | Soft indoor steps, gentle not clompy — verify license is CC0 not CC BY |
+| [Footsteps Running Away Fading 1 — Rudmer_Rotteveel](https://freesound.org/people/Rudmer_Rotteveel/sounds/316923/) | Short run of steps with natural fade, good for a quick crossing |
+| [Footsteps marble NYC Interior — simong1006](https://freesound.org/people/simong1006/sounds/544602/) | Shuffle character — could feel like little toy feet pattering |
+
+#### `plop.mp3` — stuffie snaps onto bridge after a successful drag (< 0.5 s)
+
+| Option | Notes |
+|--------|-------|
+| ["Plop!" — Breviceps](https://freesound.org/people/Breviceps/sounds/447910/) | Named exactly right; Breviceps is a prolific CC0 contributor |
+| [Wooden Thud (Mono) — Breviceps](https://freesound.org/people/Breviceps/sounds/449955/) | Same uploader, slightly harder landing — good if you want more weight |
+| ["Plop Effect" — marokki](https://freesound.org/people/marokki/sounds/569679/) | Mouth-made plop — rounder and more playful, fits the stuffie aesthetic best |
+
+#### `snapback.mp3` — stuffie bounces back to its bank after a missed drag (< 0.5 s)
+
+| Option | Notes |
+|--------|-------|
+| [Cartoon Boing — reelworldstudio](https://freesound.org/people/reelworldstudio/sounds/161122/) | Classic cartoon spring — universally readable as "nope, try again" |
+| [Bouncy Sound — Jofae](https://freesound.org/people/Jofae/sounds/368175/) | Softer bounce, less cartoonish — gentler for a 3-year-old |
+| [Boing 2 — magnuswaker](https://freesound.org/people/magnuswaker/sounds/540790/) | Jaw harp boing — warmer/organic, more handmade feel |
+
+#### `win.mp3` — all stuffies reach the far bank, level complete (2–3 s)
+
+| Option | Notes |
+|--------|-------|
+| [Success Jingle — JustInvoke](https://freesound.org/people/JustInvoke/sounds/446111/) | Described as "sparkly and positive" — good energy without being loud |
+| [Jingle Achievement — LittleRobotSoundFactory](https://freesound.org/people/LittleRobotSoundFactory/sounds/270404/) | Orchestral, uplifting — feels like a real reward moment; prolific CC0 contributor |
+| [success.wav — grunz](https://freesound.org/people/grunz/sounds/109662/) | Simple abstract game-success tone — understated, not overwhelming |
 
 ### Asset location
 
