@@ -26,4 +26,5 @@ enum ZPosition {
     static let bridge: CGFloat = 1
     static let stuffieResting: CGFloat = 2
     static let stuffieDragging: CGFloat = 10
+    static let overlay: CGFloat = 100
 }

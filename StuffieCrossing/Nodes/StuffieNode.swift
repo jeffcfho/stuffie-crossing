@@ -3,23 +3,25 @@ import SpriteKit
 class StuffieNode: SKNode {
 
     let stuffie: Stuffie
-    // Which bank this stuffie came from — used for crossing direction and snap-back
     weak var sourceBankNode: BankNode?
-    // Scene-space position when resting on a bank or bridge slot
     var restingPosition: CGPoint = .zero
 
     private let body: SKShapeNode
     private var activeTouch: UITouch?
 
-    init(stuffie: Stuffie) {
+    init(stuffie: Stuffie, isEscort: Bool = false) {
         self.stuffie = stuffie
-        let rect = CGRect(
-            x: -StuffieSize.width / 2,
-            y: -StuffieSize.height / 2,
-            width: StuffieSize.width,
-            height: StuffieSize.height
-        )
-        body = SKShapeNode(rect: rect, cornerRadius: 12)
+        if isEscort {
+            body = SKShapeNode(circleOfRadius: min(StuffieSize.width, StuffieSize.height) / 2)
+        } else {
+            let rect = CGRect(
+                x: -StuffieSize.width / 2,
+                y: -StuffieSize.height / 2,
+                width: StuffieSize.width,
+                height: StuffieSize.height
+            )
+            body = SKShapeNode(rect: rect, cornerRadius: 12)
+        }
         body.fillColor = StuffieNode.placeholderColor(for: stuffie.id)
         body.strokeColor = body.fillColor.withAlphaComponent(0.6)
         body.lineWidth = 2
@@ -97,24 +99,15 @@ class StuffieNode: SKNode {
         run(SKAction.repeat(wiggle, count: 2), withKey: "wiggle")
     }
 
-    func shakeForConflict() {
-        removeAction(forKey: "shake")
-        let shake = SKAction.sequence([
-            SKAction.moveBy(x: -12, y: 0, duration: 0.05),
-            SKAction.moveBy(x: 24, y: 0, duration: 0.05),
-            SKAction.moveBy(x: -24, y: 0, duration: 0.05),
-            SKAction.moveBy(x: 12, y: 0, duration: 0.05),
-        ])
-        run(SKAction.repeat(shake, count: 2), withKey: "shake")
-    }
-
     // MARK: - Helpers
 
     private static func placeholderColor(for id: String) -> SKColor {
         switch id {
-        case "bear":  return SKColor(red: 0.6, green: 0.4, blue: 0.2, alpha: 1)
+        case "bear":  return SKColor(red: 0.6,  green: 0.4,  blue: 0.2,  alpha: 1)
         case "bunny": return SKColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)
-        case "lion":  return SKColor(red: 0.95, green: 0.8, blue: 0.2, alpha: 1)
+        case "lion":  return SKColor(red: 0.95, green: 0.75, blue: 0.1,  alpha: 1)  // golden amber
+        case "ellie": return SKColor(red: 0.7,  green: 0.7,  blue: 0.75, alpha: 1)
+        case "duck":  return SKColor(red: 1.0,  green: 0.45, blue: 0.0,  alpha: 1)  // orange
         default:      return .gray
         }
     }

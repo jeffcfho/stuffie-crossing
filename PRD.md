@@ -1,5 +1,7 @@
 # Stuffie Crossing — Product Plan
 
+> **Implementation note**: Several deliberate departures from this PRD were made during development — including the removal of `CONFLICT_REACTION`, conflicts moving from `Stuffie` to `Level` scope (`ConflictPair`), the Ellie mandatory-escort mechanic, and a 5-level arc replacing the 2-level MVP. See `ARCHITECTURE.md` for the full departures table and the rationale behind each decision.
+
 ## Context
 
 An iPad puzzle game for a toddler (target: age 3–4, designed to grow with the child to age 4–6) built in Swift. The core mechanic is a bridge-crossing logic puzzle: a set of stuffed animals ("stuffies") start on one side of a bridge and must all cross to the other side. Only N stuffies can be on the bridge at once, and certain stuffie pairs can't be left alone together on the same bank. The player figures out which stuffies to send, in what order, and who needs to come back. App Store release is a future goal. Art starts as placeholder shapes; real assets come later.

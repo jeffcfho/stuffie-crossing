@@ -5,13 +5,16 @@ class BankNode: SKNode {
     let side: BankSide
     private let background: SKShapeNode
 
-    init(side: BankSide) {
+    init(side: BankSide, stuffieCount: Int) {
         self.side = side
+        let h = CGFloat(stuffieCount) * StuffieSize.height
+              + CGFloat(stuffieCount - 1) * BankLayout.stuffieSpacing
+              + 40  // vertical padding
         let rect = CGRect(
             x: -BankLayout.width / 2,
-            y: -BankLayout.height / 2,
+            y: -h / 2,
             width: BankLayout.width,
-            height: BankLayout.height
+            height: h
         )
         background = SKShapeNode(rect: rect, cornerRadius: 10)
         background.fillColor = SKColor(red: 0.35, green: 0.72, blue: 0.3, alpha: 1)

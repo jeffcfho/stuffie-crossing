@@ -23,6 +23,8 @@ targets:
     dependencies:
       - sdk: SpriteKit.framework
       - sdk: AVFoundation.framework
+    scheme:
+      testTargets: []
     info:
       path: StuffieCrossing/Info.plist
       properties:

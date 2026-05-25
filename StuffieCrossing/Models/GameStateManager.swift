@@ -12,7 +12,6 @@ enum GameState {
 
 protocol GameStateDelegate: AnyObject {
     func gameStateDidTransition(to state: GameState)
-    func conflictDetectedBetween(_ a: Stuffie, _ b: Stuffie, onBank: BankSide)
 }
 
 protocol GameOverlayDelegate: AnyObject {
@@ -29,18 +28,16 @@ class GameStateManager {
     weak var overlayDelegate: GameOverlayDelegate?
 
     private(set) var state: GameState = .intro {
-        didSet {
-            delegate?.gameStateDidTransition(to: state)
-            overlayDelegate?.gameStateDidChange(canGo: state == .selecting)
-        }
+        didSet { delegate?.gameStateDidTransition(to: state) }
     }
 
     private(set) var level: Level
     private(set) var leftBank: [Stuffie]
     private(set) var rightBank: [Stuffie]
     private(set) var onBridge: [Stuffie] = []
+    // IDs of the two stuffies whose conflict was detected after the last crossing.
+    private(set) var conflictingIds: [String] = []
     private var moveHistory: [MoveSnapshot] = []
-    private var retryCount: Int = 0
 
     init(level: Level) {
         self.level = level
@@ -82,6 +79,16 @@ class GameStateManager {
         evaluateAfterCrossing()
     }
 
+    // Called by GameScene after the conflict reaction animation finishes.
+    func conflictReactionCompleted() {
+        guard state == .conflictReaction else { return }
+        if let snapshot = moveHistory.popLast() {
+            restoreSnapshot(snapshot)
+        }
+        conflictingIds = []
+        state = .idle
+    }
+
     func hintTapped() -> [String]? {
         guard state == .idle || state == .selecting else { return nil }
         let step = moveHistory.count
@@ -100,8 +107,21 @@ class GameStateManager {
         onBridge.removeAll()
         leftBank = level.stuffies
         rightBank = []
-        retryCount = 0
         state = .intro
+    }
+
+    // MARK: - Go Button Validity
+
+    // Returns true if the Go button should be enabled.
+    // Only checks escort presence — conflicts are handled reactively via conflictReaction state.
+    func canTapGo(sourceSide: BankSide) -> Bool {
+        guard state == .idle || state == .selecting else { return false }
+        guard !onBridge.isEmpty else { return false }
+        if let escortId = level.mandatoryEscortId,
+           !onBridge.contains(where: { $0.id == escortId }) {
+            return false
+        }
+        return true
     }
 
     // MARK: - Internal
@@ -111,7 +131,7 @@ class GameStateManager {
         onBridge.removeAll()
         switch sourceSide {
         case .left:
-            leftBank.removeAll { s in crossers.contains { $0.id == s.id } }
+            leftBank.removeAll  { s in crossers.contains { $0.id == s.id } }
             rightBank.append(contentsOf: crossers)
         case .right:
             rightBank.removeAll { s in crossers.contains { $0.id == s.id } }
@@ -125,45 +145,50 @@ class GameStateManager {
             markLevelComplete()
             return
         }
-
-        if let (a, b, side) = firstConflict() {
-            retryCount += 1
-            delegate?.conflictDetectedBetween(a, b, onBank: side)
+        if let ids = conflictingPairIds(in: leftBank) ?? conflictingPairIds(in: rightBank) {
+            conflictingIds = ids
             state = .conflictReaction
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [weak self] in
-                self?.state = .idle
-            }
         } else {
             state = .idle
         }
     }
 
-    private func firstConflict() -> (Stuffie, Stuffie, BankSide)? {
-        // Conflict only fires when exactly 2 stuffies are alone together on a bank.
-        // A 3rd stuffie's presence prevents the conflict (they're not "alone").
-        for side in [BankSide.left, BankSide.right] {
-            let bank = side == .left ? leftBank : rightBank
-            guard bank.count == 2 else { continue }
-            if bank[0].conflictsWith(bank[1]) {
-                return (bank[0], bank[1], side)
-            }
-        }
-        return nil
+    private func conflictingPairIds(in bank: [Stuffie]) -> [String]? {
+        guard bank.count == 2,
+              level.conflicts.contains(ConflictPair(bank[0].id, bank[1].id)) else { return nil }
+        return [bank[0].id, bank[1].id]
     }
 
+    // MARK: - Persistence
+
+    private static let completedLevelIdsKey = "completedLevelIds"
+    private static let devModeKey = "devMode"
+
     private func markLevelComplete() {
-        var completed = completedLevelIds()
+        var completed = GameStateManager.completedLevelIds()
         completed.insert(level.id)
-        UserDefaults.standard.set(Array(completed), forKey: "completedLevelIds")
+        UserDefaults.standard.set(Array(completed), forKey: GameStateManager.completedLevelIdsKey)
     }
 
     static func completedLevelIds() -> Set<Int> {
-        let arr = UserDefaults.standard.array(forKey: "completedLevelIds") as? [Int] ?? []
+        let arr = UserDefaults.standard.array(forKey: completedLevelIdsKey) as? [Int] ?? []
         return Set(arr)
     }
 
-    private func completedLevelIds() -> Set<Int> {
-        GameStateManager.completedLevelIds()
+    static func resetProgress() {
+        UserDefaults.standard.removeObject(forKey: completedLevelIdsKey)
+    }
+
+    static func enableDevMode() {
+        UserDefaults.standard.set(true, forKey: devModeKey)
+    }
+
+    static func disableDevMode() {
+        UserDefaults.standard.removeObject(forKey: devModeKey)
+    }
+
+    static func isDevModeEnabled() -> Bool {
+        UserDefaults.standard.bool(forKey: devModeKey)
     }
 
     // MARK: - Undo
