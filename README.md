@@ -1,2 +1,2 @@
 # stuffie-crossing
-Prototype swift game
+Prototype river crossing iPad Swift game built using Claude Code for my daughter.
