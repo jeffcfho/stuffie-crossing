@@ -12,14 +12,19 @@
 		2ADF43D5EC0B6CFF4356DEB1 /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA0085BCA24CC50E045EB6B8 /* Level.swift */; };
 		35EE1052D98360FB80939924 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E59B03692F42A1A1E96FF37 /* GameViewController.swift */; };
 		48675307EA3B7DB124060D42 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FDAC4FE329C734A2637177C6 /* AVFoundation.framework */; };
+		53E9D0D46C32CC5A2735FC2B /* plop.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3DCFDED4217BFA4BB0F3F50E /* plop.mp3 */; };
+		56C2D5C72B37FA56FF577ED8 /* win.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 349A448619544954F3DD27ED /* win.mp3 */; };
 		5DFDC6FE0BEDCAEC253B1C68 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F1C82A0B608874019A1FC02 /* SpriteKit.framework */; };
+		601796C82036A023321DBDF7 /* snapback.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BB817C88D8903EEDAFE35309 /* snapback.mp3 */; };
 		680422BF10DD2C5FCE2B0926 /* BankNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90BE6349C32FAF2081A6BCB /* BankNode.swift */; };
 		80CF6163106061A6035B75F3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D181AB96D72210F0BE90C16F /* AppDelegate.swift */; };
 		8E80A49202470C4F450B70DB /* BridgeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02210276053A8227A0532D3D /* BridgeNode.swift */; };
 		98D6E60696BE00B8E8933730 /* MenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90AB704142A287A08ADA1522 /* MenuScene.swift */; };
 		AEFD1FBDC838E7EDE00EB738 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B358F295814A0B4FFE589F0C /* Assets.xcassets */; };
+		BF1B3A65080DE1F7FE849E15 /* IntroOverlayNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E26665BE72DFDF8A5935C58D /* IntroOverlayNode.swift */; };
 		DD588ADB3886495C8D3F816D /* Levels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6993ED3C5B30B6B2DBCB4385 /* Levels.swift */; };
 		DDAE104605E1340DDB29A069 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64AE9D5109F04FAC0C2FDFF5 /* Constants.swift */; };
+		E1906A66A3AD44FC6E16AA2D /* crossing.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 63B08CB7178197D8704EDCEC /* crossing.mp3 */; };
 		F5CA2B9DFE7D9B3536DFD99D /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0291066D0C013B3D796D9E6B /* GameScene.swift */; };
 		FE81E5D21315B3CF3A7F36F4 /* StuffieNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52480D5A6CE83BE3055770F /* StuffieNode.swift */; };
 /* End PBXBuildFile section */
@@ -28,6 +33,9 @@
 		02210276053A8227A0532D3D /* BridgeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BridgeNode.swift; sourceTree = "<group>"; };
 		0291066D0C013B3D796D9E6B /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		33DA7F2A70E0C273239A653B /* Stuffie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stuffie.swift; sourceTree = "<group>"; };
+		349A448619544954F3DD27ED /* win.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = win.mp3; sourceTree = "<group>"; };
+		3DCFDED4217BFA4BB0F3F50E /* plop.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = plop.mp3; sourceTree = "<group>"; };
+		63B08CB7178197D8704EDCEC /* crossing.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = crossing.mp3; sourceTree = "<group>"; };
 		64AE9D5109F04FAC0C2FDFF5 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		6993ED3C5B30B6B2DBCB4385 /* Levels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Levels.swift; sourceTree = "<group>"; };
 		78D78BFC7EE804393165082E /* GameStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStateManager.swift; sourceTree = "<group>"; };
@@ -36,11 +44,13 @@
 		90AB704142A287A08ADA1522 /* MenuScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuScene.swift; sourceTree = "<group>"; };
 		A90BE6349C32FAF2081A6BCB /* BankNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankNode.swift; sourceTree = "<group>"; };
 		B358F295814A0B4FFE589F0C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BB817C88D8903EEDAFE35309 /* snapback.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = snapback.mp3; sourceTree = "<group>"; };
 		C52480D5A6CE83BE3055770F /* StuffieNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StuffieNode.swift; sourceTree = "<group>"; };
 		CA0085BCA24CC50E045EB6B8 /* Level.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
 		D181AB96D72210F0BE90C16F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D92A84178E469892C603142D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		DC102DA6C1D3E2E71FB02A10 /* StuffieCrossing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StuffieCrossing.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC102DA6C1D3E2E71FB02A10 /* StuffieCrossing.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = StuffieCrossing.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E26665BE72DFDF8A5935C58D /* IntroOverlayNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroOverlayNode.swift; sourceTree = "<group>"; };
 		FDAC4FE329C734A2637177C6 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -71,6 +81,7 @@
 			children = (
 				A90BE6349C32FAF2081A6BCB /* BankNode.swift */,
 				02210276053A8227A0532D3D /* BridgeNode.swift */,
+				E26665BE72DFDF8A5935C58D /* IntroOverlayNode.swift */,
 				C52480D5A6CE83BE3055770F /* StuffieNode.swift */,
 			);
 			path = Nodes;
@@ -120,6 +131,17 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		AC91895C195C3C08DA181042 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				63B08CB7178197D8704EDCEC /* crossing.mp3 */,
+				3DCFDED4217BFA4BB0F3F50E /* plop.mp3 */,
+				BB817C88D8903EEDAFE35309 /* snapback.mp3 */,
+				349A448619544954F3DD27ED /* win.mp3 */,
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
 		D138C917F094B38B9CA91771 /* App */ = {
 			isa = PBXGroup;
 			children = (
@@ -140,6 +162,7 @@
 				915352EEA6B1401E6A73F637 /* Models */,
 				4216C8AF4376B89237BE7898 /* Nodes */,
 				38F9AC1A23DFD822543B050A /* Scenes */,
+				AC91895C195C3C08DA181042 /* Sounds */,
 			);
 			path = StuffieCrossing;
 			sourceTree = "<group>";
@@ -205,6 +228,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				AEFD1FBDC838E7EDE00EB738 /* Assets.xcassets in Resources */,
+				E1906A66A3AD44FC6E16AA2D /* crossing.mp3 in Resources */,
+				53E9D0D46C32CC5A2735FC2B /* plop.mp3 in Resources */,
+				601796C82036A023321DBDF7 /* snapback.mp3 in Resources */,
+				56C2D5C72B37FA56FF577ED8 /* win.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -222,6 +249,7 @@
 				F5CA2B9DFE7D9B3536DFD99D /* GameScene.swift in Sources */,
 				254489298D5F1C43C6453135 /* GameStateManager.swift in Sources */,
 				35EE1052D98360FB80939924 /* GameViewController.swift in Sources */,
+				BF1B3A65080DE1F7FE849E15 /* IntroOverlayNode.swift in Sources */,
 				2ADF43D5EC0B6CFF4356DEB1 /* Level.swift in Sources */,
 				DD588ADB3886495C8D3F816D /* Levels.swift in Sources */,
 				98D6E60696BE00B8E8933730 /* MenuScene.swift in Sources */,
@@ -240,7 +268,6 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = B4AW3PYMNN;
 				INFOPLIST_FILE = StuffieCrossing/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -324,7 +351,6 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = B4AW3PYMNN;
 				INFOPLIST_FILE = StuffieCrossing/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (

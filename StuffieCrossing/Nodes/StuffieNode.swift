@@ -101,7 +101,8 @@ class StuffieNode: SKNode {
 
     // MARK: - Helpers
 
-    private static func placeholderColor(for id: String) -> SKColor {
+    // Not private: IntroOverlayNode draws matching mini portraits.
+    static func placeholderColor(for id: String) -> SKColor {
         switch id {
         case "bear":  return SKColor(red: 0.6,  green: 0.4,  blue: 0.2,  alpha: 1)
         case "bunny": return SKColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 1)

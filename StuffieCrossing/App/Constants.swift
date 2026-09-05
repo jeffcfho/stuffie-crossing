@@ -28,3 +28,11 @@ enum ZPosition {
     static let stuffieDragging: CGFloat = 10
     static let overlay: CGFloat = 100
 }
+
+// Filenames in StuffieCrossing/Sounds/. See POLISH.md for the CC0 candidate links.
+enum Sounds {
+    static let crossing = "crossing.mp3"
+    static let plop     = "plop.mp3"
+    static let snapback = "snapback.mp3"
+    static let win      = "win.mp3"
+}

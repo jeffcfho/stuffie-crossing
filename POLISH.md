@@ -1,5 +1,40 @@
 # Plan: Polish — Sounds, Transitions, and Level Intro
 
+## Status
+
+**This step is complete.** The intro overlay, the scene transitions, all four sound
+call sites, and the four sound files themselves are in. See
+`StuffieCrossing/Sounds/README.md` for which candidate was picked for each slot, its
+license, and the trim applied to match the animation timings.
+
+Still unverified by ear on a device: whether the chosen sounds actually *feel* right
+to a 3-year-old, and whether the trimmed lengths sit well against the animations.
+That's the manual pass.
+
+`GameScene.playSound(_:)` checks the bundle before playing, because
+`SKAction.playSoundFileNamed` traps on a missing file — so removing a sound file
+degrades to silence rather than a crash.
+
+Three corrections to the plan as originally written, applied during implementation:
+
+- `ZPosition.overlay = 100` already existed in `Constants.swift` (used by the smoke
+  puff and the win banner) — no change was needed there.
+- The real method names are `stuffieDroppedOnBridge(_:)`, `stuffieDroppedOffBridge(_:)`,
+  and `animateCrossing(sourceSide:)` — not the names §1 guessed.
+- There is no "win → next level" flow to add a transition to: winning returns to the
+  menu, so only Menu → Game (push left) and Game → Menu (push right) exist.
+
+Two details the plan didn't anticipate:
+
+- `GameStateManager.state` is *initialized* to `.intro`, so `didSet` never fires for it
+  on load and `gameStateDidTransition(to: .intro)` is never called. `GameScene.didMove`
+  therefore shows the overlay directly; the `.intro` case still exists to handle
+  Restart, which genuinely does transition back to `.intro`.
+- Sound filenames live in a `Sounds` enum in `Constants.swift` rather than as string
+  literals at the call sites, matching the no-magic-values rule in CLAUDE.md.
+
+---
+
 ## Context
 
 The core game loop is complete across all 5 levels. This step adds three experiential layers before art:
@@ -31,6 +66,13 @@ Prefer **mono** files under 100 KB each. `.mp3` or `.caf` both work; `.caf` avoi
 
 ### Candidate sounds — open each link, hit play to audition, download the one you like
 
+**Licenses verified 2026-09-05.** Every candidate below is confirmed CC0 *except* the
+three original `win.mp3` options, which turned out to be CC BY and have been replaced.
+
+Two `crossing.mp3` candidates are far longer than the 1–2 s brief and blow past the
+100 KB target: BurghRecords 386929 is 1.5 MB and simong1006 544602 is 1.9 MB. Only
+Rudmer_Rotteveel 316923 (75 KB) fits as-is; the other two would need trimming.
+
 #### `crossing.mp3` — stuffies start walking across the bridge (plays once per Go tap, 1–2 s)
 
 | Option | Notes |
@@ -57,11 +99,17 @@ Prefer **mono** files under 100 KB each. `.mp3` or `.caf` both work; `.caf` avoi
 
 #### `win.mp3` — all stuffies reach the far bank, level complete (2–3 s)
 
+> **The three original candidates were all CC BY, not CC0** — checked against each
+> sound page on 2026-09-05. JustInvoke 446111 and LittleRobotSoundFactory 270404 are
+> CC BY 4.0; grunz 109662 is CC BY 3.0. All three require in-app attribution, so per
+> this document's own rule they're out. Replaced with verified-CC0 options below.
+
 | Option | Notes |
 |--------|-------|
-| [Success Jingle — JustInvoke](https://freesound.org/people/JustInvoke/sounds/446111/) | Described as "sparkly and positive" — good energy without being loud |
-| [Jingle Achievement — LittleRobotSoundFactory](https://freesound.org/people/LittleRobotSoundFactory/sounds/270404/) | Orchestral, uplifting — feels like a real reward moment; prolific CC0 contributor |
-| [success.wav — grunz](https://freesound.org/people/grunz/sounds/109662/) | Simple abstract game-success tone — understated, not overwhelming |
+| [WinDoot — Fupicat](https://freesound.org/people/Fupicat/sounds/521638/) | Short bright "doot" fanfare, 63 KB |
+| [WinGrandPiano — Fupicat](https://freesound.org/people/Fupicat/sounds/521643/) | Piano flourish — warmer, less videogamey, 68 KB |
+| [WinBanjo — Fupicat](https://freesound.org/people/Fupicat/sounds/521640/) | Plucky banjo run — playful, fits the toy aesthetic, 60 KB |
+| [Congrats — Fupicat](https://freesound.org/people/Fupicat/sounds/607207/) | Shortest of the set at 31 KB |
 
 ### Asset location
 
@@ -90,17 +138,18 @@ private func playSound(_ name: String) {
 Call sites in `GameScene`:
 
 ```swift
-// In animateStuffiesCrossing() — when ANIMATING begins
-playSound("crossing.mp3")
+// In animateCrossing(sourceSide:) — when ANIMATING begins
+playSound(Sounds.crossing)
 
-// In handleStuffieDroppedOnBridge(_:) — snap confirmed
-playSound("plop.mp3")
+// In stuffieDroppedOnBridge(_:) — snap confirmed (guarded: the manager
+// rejects the drop when the bridge is full, and that shouldn't sound)
+playSound(Sounds.plop)
 
-// In snapStuffieBackToBank(_:) — drag miss or drag away from bridge
-playSound("snapback.mp3")
+// In stuffieDroppedOffBridge(_:) — drag miss or drag away from bridge
+playSound(Sounds.snapback)
 
-// In gameStateDidTransition(to: .win)
-playSound("win.mp3")
+// In showWinCelebration(), reached from gameStateDidTransition(to: .win)
+playSound(Sounds.win)
 ```
 
 No `SoundManager` class — `GameScene` owns all playback. The sounds follow the state machine; nothing in `GameStateManager` or the UIKit overlay needs to change.
