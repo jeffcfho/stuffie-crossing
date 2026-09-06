@@ -67,6 +67,12 @@ class GameScene: SKScene {
             y: cy
         )
         addChild(rightBankNode)
+
+        // Persistent conflict rules along the top. nil when the level has none.
+        if let badge = RulesBadgeNode(level: stateManager.level) {
+            badge.position = RulesBadgeNode.position(in: size)
+            addChild(badge)
+        }
     }
 
     private func populateLevel() {

@@ -17,6 +17,7 @@ SWIFT_FILES=(
   "$REPO/StuffieCrossing/Nodes/BridgeNode.swift"
   "$REPO/StuffieCrossing/Nodes/StuffieNode.swift"
   "$REPO/StuffieCrossing/Nodes/IntroOverlayNode.swift"
+  "$REPO/StuffieCrossing/Nodes/RulesBadgeNode.swift"
   "$REPO/StuffieCrossing/Scenes/MenuScene.swift"
   "$REPO/StuffieCrossing/Scenes/GameScene.swift"
 )
