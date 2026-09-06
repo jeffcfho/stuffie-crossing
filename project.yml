@@ -12,6 +12,8 @@ targets:
     deploymentTarget: "16.0"
     sources:
       - path: StuffieCrossing
+        excludes:
+          - "Sounds/README.md"   # docs, not a bundled resource
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.stuffiecrossing.app

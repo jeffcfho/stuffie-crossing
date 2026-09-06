@@ -23,7 +23,23 @@ class GameScene: SKScene {
         stateManager.delegate = self
         setupNodes()
         populateLevel()
-        stateManager.introCompleted()
+        showIntroOverlay()
+    }
+
+    // MARK: - Intro Overlay
+
+    // The state machine starts at .intro, so no transition fires for it on load —
+    // didMove shows the overlay directly. Restart *does* transition back to .intro,
+    // which routes here through gameStateDidTransition(to:).
+    private func showIntroOverlay() {
+        childNode(withName: IntroOverlayNode.nodeName)?.removeFromParent()
+
+        let overlay = IntroOverlayNode(level: stateManager.level, sceneSize: size)
+        overlay.position = CGPoint(x: size.width / 2, y: size.height / 2)
+        overlay.onDismiss = { [weak self] in
+            self?.stateManager.introCompleted()
+        }
+        addChild(overlay)
     }
 
     // MARK: - Setup
@@ -82,6 +98,10 @@ class GameScene: SKScene {
 
     func stuffieDroppedOnBridge(_ node: StuffieNode) {
         stateManager.stuffieMovedToBridge(node.stuffie)
+        // The manager rejects the drop when the bridge is full — only sound a real landing.
+        if stateManager.onBridge.contains(where: { $0.id == node.stuffie.id }) {
+            playSound(Sounds.plop)
+        }
         repositionBridgeStuffies()
         updateGoButtonState()
     }
@@ -92,6 +112,7 @@ class GameScene: SKScene {
             repositionBridgeStuffies()
         }
         node.snapToRestingPosition()
+        playSound(Sounds.snapback)
         updateGoButtonState()
     }
 
@@ -135,13 +156,15 @@ class GameScene: SKScene {
     }
 
     func handleRestartTapped() {
+        // restartTapped() transitions to .intro, which shows the overlay again;
+        // dismissing it calls introCompleted().
         stateManager.restartTapped()
-        stateManager.introCompleted()
     }
 
     // MARK: - Animations
 
     private func animateCrossing(sourceSide: BankSide) {
+        playSound(Sounds.crossing)
         let crossers = stateManager.onBridge.compactMap { stuffieNodes[$0.id] }
         let targetX = sourceSide == .left ? rightBankNode.position.x : leftBankNode.position.x
 
@@ -207,6 +230,27 @@ class GameScene: SKScene {
         populateLevel()
     }
 
+    // MARK: - Sound
+
+    // Sound files live in StuffieCrossing/Sounds/ and are bundled by xcodegen.
+    // playSoundFileNamed traps on a missing file, so check the bundle first —
+    // the game stays playable while the .mp3s are still being sourced.
+    private func playSound(_ name: String) {
+        guard GameScene.soundExists(name) else { return }
+        run(SKAction.playSoundFileNamed(name, waitForCompletion: false))
+    }
+
+    private static var soundAvailability: [String: Bool] = [:]
+
+    private static func soundExists(_ name: String) -> Bool {
+        if let known = soundAvailability[name] { return known }
+        let resource = (name as NSString).deletingPathExtension
+        let ext = (name as NSString).pathExtension
+        let found = Bundle.main.url(forResource: resource, withExtension: ext) != nil
+        soundAvailability[name] = found
+        return found
+    }
+
     // MARK: - Helpers
 
     private func currentBridgeSourceSide() -> BankSide {
@@ -224,6 +268,8 @@ extension GameScene: GameStateDelegate {
         updateGoButtonState()
 
         switch state {
+        case .intro:
+            showIntroOverlay()
         case .idle:
             rebuildStuffieNodes()
         case .animating:
@@ -238,6 +284,7 @@ extension GameScene: GameStateDelegate {
     }
 
     private func showWinCelebration() {
+        playSound(Sounds.win)
         let currentId = stateManager.level.id
         let nextLevelId = currentId + 1
         let hasNextLevel = Levels.allLevels().contains(where: { $0.id == nextLevelId })
@@ -264,7 +311,8 @@ extension GameScene: GameStateDelegate {
             guard let self, let view = self.view else { return }
             let menu = MenuScene(size: self.size)
             menu.scaleMode = .resizeFill
-            view.presentScene(menu, transition: SKTransition.fade(withDuration: 0.8))
+            // Push right: the menu sits "to the left" of the game.
+            view.presentScene(menu, transition: SKTransition.push(with: .right, duration: 0.35))
             if let vc = view.next as? GameViewController {
                 vc.hideGameOverlay()
             }

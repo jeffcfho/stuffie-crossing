@@ -97,7 +97,8 @@ class MenuScene: SKScene {
         guard let view = view else { return }
         let scene = GameScene(level: level, size: size)
         scene.scaleMode = .resizeFill
-        view.presentScene(scene, transition: SKTransition.fade(withDuration: 0.5))
+        // Push left: the game lives "to the right" of the menu.
+        view.presentScene(scene, transition: SKTransition.push(with: .left, duration: 0.35))
         if let vc = view.next as? GameViewController {
             vc.showGameOverlay(gameScene: scene)
         }
