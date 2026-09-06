@@ -35,6 +35,11 @@ class GameStateManager {
     private(set) var leftBank: [Stuffie]
     private(set) var rightBank: [Stuffie]
     private(set) var onBridge: [Stuffie] = []
+    // Which bank the current bridge load departs from. nil when the bridge is empty.
+    // The bridge may only ever hold stuffies travelling in one direction: a mixed
+    // load made applyBridgeCrossing(from:) append a stuffie to the bank it was
+    // already on, duplicating it and inflating the win count.
+    private(set) var bridgeSourceSide: BankSide?
     // IDs of the two stuffies whose conflict was detected after the last crossing.
     private(set) var conflictingIds: [String] = []
     private var moveHistory: [MoveSnapshot] = []
@@ -56,13 +61,26 @@ class GameStateManager {
         guard state == .idle || state == .selecting else { return }
         guard onBridge.count < level.bridgeCapacity else { return }
         guard !onBridge.contains(where: { $0.id == stuffie.id }) else { return }
+        // A stuffie on the bridge is still listed on its bank until the crossing
+        // is applied, so its current bank is its departure side.
+        guard let side = bankSide(of: stuffie) else { return }
+        guard bridgeSourceSide == nil || bridgeSourceSide == side else { return }
         onBridge.append(stuffie)
+        bridgeSourceSide = side
         state = onBridge.isEmpty ? .idle : .selecting
+    }
+
+    // The bank a stuffie currently stands on, or nil if it is on neither.
+    func bankSide(of stuffie: Stuffie) -> BankSide? {
+        if leftBank.contains(where:  { $0.id == stuffie.id }) { return .left }
+        if rightBank.contains(where: { $0.id == stuffie.id }) { return .right }
+        return nil
     }
 
     func stuffieRemovedFromBridge(_ stuffie: Stuffie) {
         guard state == .selecting else { return }
         onBridge.removeAll { $0.id == stuffie.id }
+        if onBridge.isEmpty { bridgeSourceSide = nil }
         state = onBridge.isEmpty ? .idle : .selecting
     }
 
@@ -105,6 +123,7 @@ class GameStateManager {
     func restartTapped() {
         moveHistory.removeAll()
         onBridge.removeAll()
+        bridgeSourceSide = nil
         leftBank = level.stuffies
         rightBank = []
         state = .intro
@@ -129,6 +148,7 @@ class GameStateManager {
     private func applyBridgeCrossing(from sourceSide: BankSide) {
         let crossers = onBridge
         onBridge.removeAll()
+        bridgeSourceSide = nil
         switch sourceSide {
         case .left:
             leftBank.removeAll  { s in crossers.contains { $0.id == s.id } }
@@ -213,5 +233,6 @@ class GameStateManager {
         leftBank = snapshot.leftBank
         rightBank = snapshot.rightBank
         onBridge = snapshot.onBridge
+        bridgeSourceSide = snapshot.onBridge.isEmpty ? nil : snapshot.sourceSide
     }
 }

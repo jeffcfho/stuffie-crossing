@@ -7,6 +7,10 @@ Ordered by severity. None are blocking — the game is playable end to end.
 
 ## 1. Mixed-direction bridge duplicates a stuffie — *correctness*
 
+> **Fixed** on `fix/mixed-direction-bridge`. Covered by 5 tests in
+> `GameStateManagerTests`, verified to fail when the guard is removed.
+
+
 Dragging a left-bank stuffie and a right-bank stuffie onto the bridge together and
 tapping Go duplicates one of them: a second Ellie appears on the right bank.
 

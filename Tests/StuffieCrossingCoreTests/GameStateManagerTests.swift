@@ -113,6 +113,68 @@ final class GameStateManagerTests: XCTestCase {
         XCTAssertTrue(mgr.rightBank.isEmpty)
     }
 
+    // MARK: - Bridge Direction
+
+    // Regression: loading the bridge from both banks at once used to duplicate a
+    // stuffie. currentBridgeSourceSide() applied the first stuffie's bank to every
+    // crosser, so applyBridgeCrossing appended a right-bank stuffie to rightBank,
+    // where it already was.
+    func test_mixedDirectionLoad_isRejected() {
+        let mgr = makeManager(level: Levels.level2)
+        cross(["ellie", "bunny"], from: .left, in: mgr)   // ellie + bunny now on the right
+
+        let leftStuffie = mgr.leftBank[0]
+        let rightStuffie = mgr.rightBank[0]
+
+        mgr.stuffieMovedToBridge(rightStuffie)
+        XCTAssertEqual(mgr.bridgeSourceSide, .right)
+
+        mgr.stuffieMovedToBridge(leftStuffie)   // opposite direction — must not board
+        XCTAssertEqual(mgr.onBridge.count, 1)
+        XCTAssertFalse(mgr.onBridge.contains { $0.id == leftStuffie.id })
+        XCTAssertEqual(mgr.bridgeSourceSide, .right)
+    }
+
+    func test_mixedDirectionLoad_doesNotDuplicateAfterCrossing() {
+        let mgr = makeManager(level: Levels.level2)
+        cross(["ellie", "bunny"], from: .left, in: mgr)
+
+        let totalBefore = mgr.leftBank.count + mgr.rightBank.count
+        mgr.stuffieMovedToBridge(mgr.rightBank[0])
+        mgr.stuffieMovedToBridge(mgr.leftBank[0])       // rejected
+        mgr.goTapped(sourceSide: .right)
+        mgr.animationCompleted(sourceSide: .right)
+
+        let ids = (mgr.leftBank + mgr.rightBank).map(\.id)
+        XCTAssertEqual(ids.count, Set(ids).count, "a stuffie was duplicated")
+        XCTAssertEqual(mgr.leftBank.count + mgr.rightBank.count, totalBefore)
+    }
+
+    func test_bridgeSourceSide_isNilWhenBridgeEmpty() {
+        let mgr = makeManager()
+        XCTAssertNil(mgr.bridgeSourceSide)
+
+        let s = mgr.leftBank[0]
+        mgr.stuffieMovedToBridge(s)
+        XCTAssertEqual(mgr.bridgeSourceSide, .left)
+
+        mgr.stuffieRemovedFromBridge(s)
+        XCTAssertNil(mgr.bridgeSourceSide, "direction should clear when the bridge empties")
+    }
+
+    func test_bridgeSourceSide_clearsAfterCrossing() {
+        let mgr = makeManager()
+        cross(Levels.level1.hintSequence[0], from: .left, in: mgr)
+        XCTAssertNil(mgr.bridgeSourceSide)
+    }
+
+    func test_sameDirectionLoad_stillAllowed() {
+        let mgr = makeManager()
+        putOnBridge(Levels.level1.hintSequence[0], from: .left, in: mgr)
+        XCTAssertEqual(mgr.onBridge.count, 2)
+        XCTAssertEqual(mgr.bridgeSourceSide, .left)
+    }
+
     // MARK: - State Transitions
 
     func test_stuffieOnBridge_transitionsToSelecting() {
