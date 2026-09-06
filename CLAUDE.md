@@ -37,7 +37,7 @@ The Xcode project is **generated, not hand-edited** — change `project.yml` and
 ```bash
 xcodegen --spec project.yml           # after adding/removing any file
 xcodebuild -scheme StuffieCrossing build
-xcodebuild -scheme StuffieCrossing -destination 'platform=iOS Simulator,name=iPad Pro (12.9-inch) (6th generation)' build
+xcodebuild -scheme StuffieCrossing -destination 'platform=iOS Simulator,name=iPad Pro 11-inch (M5)' build
 ```
 
 Because `project.yml` declares `sources: - path: StuffieCrossing`, any file added under that directory is picked up automatically — including sound and art assets. No per-file project surgery.
