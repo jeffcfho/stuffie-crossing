@@ -49,7 +49,7 @@
 		CA0085BCA24CC50E045EB6B8 /* Level.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
 		D181AB96D72210F0BE90C16F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D92A84178E469892C603142D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		DC102DA6C1D3E2E71FB02A10 /* StuffieCrossing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StuffieCrossing.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC102DA6C1D3E2E71FB02A10 /* StuffieCrossing.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = StuffieCrossing.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E26665BE72DFDF8A5935C58D /* IntroOverlayNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroOverlayNode.swift; sourceTree = "<group>"; };
 		FDAC4FE329C734A2637177C6 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -268,7 +268,6 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = B4AW3PYMNN;
 				INFOPLIST_FILE = StuffieCrossing/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -352,7 +351,6 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = B4AW3PYMNN;
 				INFOPLIST_FILE = StuffieCrossing/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
