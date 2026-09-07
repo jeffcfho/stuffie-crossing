@@ -101,7 +101,25 @@ class StuffieNode: SKNode {
 
     // MARK: - Helpers
 
-    // Not private: IntroOverlayNode draws matching mini portraits.
+    // A scaled-down stand-in for a stuffie: circle for the escort, rounded square
+    // otherwise — the same shape language as the real node. Shared by
+    // IntroOverlayNode and RulesBadgeNode so the three never drift apart.
+    static func portrait(for stuffie: Stuffie, isEscort: Bool, size: CGFloat) -> SKShapeNode {
+        let color = placeholderColor(for: stuffie.id)
+        let shape: SKShapeNode
+        if isEscort {
+            shape = SKShapeNode(circleOfRadius: size / 2)
+        } else {
+            let rect = CGRect(x: -size / 2, y: -size / 2, width: size, height: size)
+            shape = SKShapeNode(rect: rect, cornerRadius: size * 0.17)
+        }
+        shape.fillColor = color
+        shape.strokeColor = color.withAlphaComponent(0.6)
+        shape.lineWidth = 2
+        return shape
+    }
+
+    // Not private: the portrait helpers above and IntroOverlayNode use it.
     static func placeholderColor(for id: String) -> SKColor {
         switch id {
         case "bear":  return SKColor(red: 0.6,  green: 0.4,  blue: 0.2,  alpha: 1)

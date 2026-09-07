@@ -43,6 +43,11 @@ direction. Needs a unit test in `GameStateManagerTests`.
 
 ## 2. Conflict rules vanish after the intro — *UX*
 
+> **Fixed** on `feat/persistent-rules` via `RulesBadgeNode` — a slim strip of the
+> conflict pairs pinned along the top for the whole level. Shows conflicts only; the
+> escort rule is item 3 and waits for art.
+
+
 `IntroOverlayNode` shows which pairs conflict, then disappears on tap and never
 returns. A 3-year-old cannot re-check the rules mid-puzzle without hitting Restart.
 

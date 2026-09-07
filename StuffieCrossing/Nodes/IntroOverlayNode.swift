@@ -73,7 +73,7 @@ final class IntroOverlayNode: SKSpriteNode {
 
     private func addConflictRow(pair: ConflictPair, level: Level, y: CGFloat) {
         if let a = level.stuffies.first(where: { $0.id == pair.a }) {
-            let node = miniPortrait(for: a, isEscort: a.id == level.mandatoryEscortId)
+            let node = StuffieNode.portrait(for: a, isEscort: a.id == level.mandatoryEscortId, size: Layout.portraitSize)
             node.position = CGPoint(x: -Layout.pairGap, y: y)
             addChild(node)
         }
@@ -87,27 +87,10 @@ final class IntroOverlayNode: SKSpriteNode {
         addChild(marker)
 
         if let b = level.stuffies.first(where: { $0.id == pair.b }) {
-            let node = miniPortrait(for: b, isEscort: b.id == level.mandatoryEscortId)
+            let node = StuffieNode.portrait(for: b, isEscort: b.id == level.mandatoryEscortId, size: Layout.portraitSize)
             node.position = CGPoint(x: Layout.pairGap, y: y)
             addChild(node)
         }
-    }
-
-    // Mirrors StuffieNode's placeholder shapes: circle for the escort, rounded square otherwise.
-    private func miniPortrait(for stuffie: Stuffie, isEscort: Bool) -> SKNode {
-        let size = Layout.portraitSize
-        let color = StuffieNode.placeholderColor(for: stuffie.id)
-        let shape: SKShapeNode
-        if isEscort {
-            shape = SKShapeNode(circleOfRadius: size / 2)
-        } else {
-            let rect = CGRect(x: -size / 2, y: -size / 2, width: size, height: size)
-            shape = SKShapeNode(rect: rect, cornerRadius: 8)
-        }
-        shape.fillColor = color
-        shape.strokeColor = color.withAlphaComponent(0.6)
-        shape.lineWidth = 2
-        return shape
     }
 
     // MARK: - Dismiss

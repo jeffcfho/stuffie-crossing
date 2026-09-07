@@ -16,6 +16,7 @@
 		56C2D5C72B37FA56FF577ED8 /* win.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 349A448619544954F3DD27ED /* win.mp3 */; };
 		5DFDC6FE0BEDCAEC253B1C68 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F1C82A0B608874019A1FC02 /* SpriteKit.framework */; };
 		601796C82036A023321DBDF7 /* snapback.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BB817C88D8903EEDAFE35309 /* snapback.mp3 */; };
+		6488C3447E634397909BDE4D /* RulesBadgeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F227743AF9CB3ADDA82876D /* RulesBadgeNode.swift */; };
 		680422BF10DD2C5FCE2B0926 /* BankNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A90BE6349C32FAF2081A6BCB /* BankNode.swift */; };
 		80CF6163106061A6035B75F3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D181AB96D72210F0BE90C16F /* AppDelegate.swift */; };
 		8E80A49202470C4F450B70DB /* BridgeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02210276053A8227A0532D3D /* BridgeNode.swift */; };
@@ -35,6 +36,7 @@
 		33DA7F2A70E0C273239A653B /* Stuffie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stuffie.swift; sourceTree = "<group>"; };
 		349A448619544954F3DD27ED /* win.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = win.mp3; sourceTree = "<group>"; };
 		3DCFDED4217BFA4BB0F3F50E /* plop.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = plop.mp3; sourceTree = "<group>"; };
+		4F227743AF9CB3ADDA82876D /* RulesBadgeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulesBadgeNode.swift; sourceTree = "<group>"; };
 		63B08CB7178197D8704EDCEC /* crossing.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = crossing.mp3; sourceTree = "<group>"; };
 		64AE9D5109F04FAC0C2FDFF5 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		6993ED3C5B30B6B2DBCB4385 /* Levels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Levels.swift; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 				A90BE6349C32FAF2081A6BCB /* BankNode.swift */,
 				02210276053A8227A0532D3D /* BridgeNode.swift */,
 				E26665BE72DFDF8A5935C58D /* IntroOverlayNode.swift */,
+				4F227743AF9CB3ADDA82876D /* RulesBadgeNode.swift */,
 				C52480D5A6CE83BE3055770F /* StuffieNode.swift */,
 			);
 			path = Nodes;
@@ -253,6 +256,7 @@
 				2ADF43D5EC0B6CFF4356DEB1 /* Level.swift in Sources */,
 				DD588ADB3886495C8D3F816D /* Levels.swift in Sources */,
 				98D6E60696BE00B8E8933730 /* MenuScene.swift in Sources */,
+				6488C3447E634397909BDE4D /* RulesBadgeNode.swift in Sources */,
 				195BA242D8C1973F78099B9A /* Stuffie.swift in Sources */,
 				FE81E5D21315B3CF3A7F36F4 /* StuffieNode.swift in Sources */,
 			);
