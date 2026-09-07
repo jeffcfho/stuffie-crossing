@@ -63,6 +63,18 @@ observe without coaching — if they need a verbal prompt, the UX has a gap."*
 
 ## 3. Nothing signals that Ellie must cross every time — *UX*
 
+> **Deliberately deferred until after the art swap (step 10).** This item is really
+> two problems, and art only solves one of them:
+>
+> - *"Which one is special"* — a distinctive Ellie sprite solves this on its own. A
+>   grey circle never will. Designing a marker now means throwing it away later.
+> - *"Ellie must be on every crossing"* — art cannot solve this. It is a rule, not an
+>   identity, and no sprite communicates "mandatory."
+>
+> So do the art first, then revisit: the remaining work is likely just feedback for
+> the tapped-but-disabled Go button, which is much smaller than this entry implies.
+
+
 The mandatory-escort rule is the core mechanic and is communicated nowhere. It is
 enforced silently in `canTapGo(sourceSide:)`, which just leaves Go disabled. A child
 sees a dead button and no reason for it.
@@ -115,3 +127,28 @@ iPad 6th gen (A10), iPadOS 16.6:
 - Drag latency — fine on A10 hardware
 - `crossing.mp3` timing — 0.88 s clip reads as walking against the 0.55 s animation
 - All four sounds fire at the right moments
+
+
+---
+
+## Suggested order of work
+
+Agreed 2026-09-06/07. Items 1 and 2 are done and merged to `main`.
+
+1. ~~Mixed-direction duplicate bug~~ — done
+2. ~~Persistent conflict rules~~ — done
+3. **Art swap (PRD step 10, see `VISUALS.md`)** — next
+4. Escort affordance (item 3 above) — after art, for the reasons given there
+5. Two-finger drag (item 4) and conflict sound (item 5) — small and independent,
+   can be picked up any time
+
+### Note for whoever picks this up
+
+Two things worth knowing that aren't obvious from the code:
+
+- **Nothing here has been tested on hardware since the sound work.** Items 1 and 2
+  were verified by unit tests and on the simulator only. The iPad kept dropping off
+  USB (a marginal Lightning cable on an iPad 6th gen). `scripts/test.sh` covers the
+  logic; drag feel and layout on a real 1024x768 screen are unverified.
+- **The rules strip's layout was checked arithmetically, not visually, at Level 5** —
+  its widest case, 5 conflict pairs, ~694pt of ~1024pt. Worth an actual look.
